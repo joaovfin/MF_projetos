@@ -1,3 +1,32 @@
+""" Screening de Distorção de Volume
+
+Este script realiza uma análise de distorção de volume para identificar sinais relevantes no comportamento de negociação de ativos financeiros. O processo é baseado no cálculo da média e do desvio padrão dos volumes diários ao longo de um período de 60 dias.
+
+Funcionamento:
+1. **Cálculo da Média e Desvio Padrão**: Para cada ativo, é calculada a média do volume diário e o desvio padrão com base nos últimos 60 períodos.
+2. **Bandas de Desvio Padrão**: A partir da média, são geradas três bandas de desvio padrão:
+   - +1.5 desvios padrão
+   - +2.5 desvios padrão
+   - +3.5 desvios padrão
+3. **Identificação de Sinais**: O script verifica se o volume diário excede uma dessas bandas de desvio padrão em qualquer dia. Quando isso ocorre, é registrado um "sinal de distorção de volume" para aquele dia.
+4. **Verificação de Data**: A análise pode ser realizada para uma data específica (input), permitindo que o usuário verifique rapidamente se houve algum sinal de distorção no volume do ativo na data fornecida.
+5. **Sinal Mais Recente**: O script também retorna o sinal de volume mais recente para cada ativo, facilitando a identificação de comportamentos anômalos recentes.
+
+Objetivo:
+O objetivo é identificar padrões de volume anômalos que possam indicar movimentos significativos de preço ou alterações na liquidez de um ativo, auxiliando em decisões de compra e venda.
+
+Entrada:
+- Classe de ativos - Ações BR, FII's, Commodities, Ações US, Cripto, ETF's BR e ETF's USA.
+- Data específica para análise.
+- Periodo da média - Recomendado são 60 periodos
+- Histórico de Sinais - 1,2,3...
+
+Saída:
+- Dias em que houve sinais de distorção no volume.
+- O sinal de distorção mais recente para cada ativo.
+
+"""
+
 #Importando bibliotecas
 import time
 import pandas as pd
@@ -68,7 +97,7 @@ else:
 #Input's
 end = input("Digite a data de consulta (yyyy-mm-dd): ")
 window = int(input('Periodo Média Móvel: '))
-historico = int(input("Histórico do indicador (Exemplo: D-5 (Digite apenas o número)): "))
+historico = int(input("Histórico do Sinais (Exemplo: D-5 (Digite apenas o número 5)): "))
 
 
 # Define a data de consulta
